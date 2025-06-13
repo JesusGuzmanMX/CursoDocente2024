@@ -81,7 +81,7 @@ if st.button("Enviar respuestas"):
     archivo = "resultados_evaluacion.csv"
 
     if os.path.exists(archivo):
-        df_existente = pd.read_excel(archivo)
+        df_existente = pd.read_csv(archivo)
         df_final = pd.concat([df_existente, df], ignore_index=True)
     else:
         df_final = df
