@@ -78,7 +78,7 @@ if st.button("Enviar respuestas"):
 
     df = pd.DataFrame([data])
 
-    archivo = "resultados_evaluacion.xlsx"
+    archivo = "resultados_evaluacion.csv"
 
     if os.path.exists(archivo):
         df_existente = pd.read_excel(archivo)
@@ -86,7 +86,7 @@ if st.button("Enviar respuestas"):
     else:
         df_final = df
 
-    df_final.to_excel(archivo, index=False)
+    df_final.to_csv(archivo, index=False)
 
     st.success("Respuestas guardadas exitosamente.")
     st.write("Resumen de tus resultados:")
