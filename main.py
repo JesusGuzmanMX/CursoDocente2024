@@ -40,25 +40,21 @@ comprension_lectora = [
     "Después de leer un texto, puedo resumirlo con mis propias palabras de forma clara."
 ]
 
+# Identificador del estudiante
+nombre = st.text_input("Nombre del estudiante")
+
 # Mostrar ítems y obtener respuestas
 respuestas_equipo = mostrar_items("Trabajo en equipo", trabajo_equipo)
 respuestas_autonomo = mostrar_items("Trabajo autónomo en casa", trabajo_autonomo)
 respuestas_lectora = mostrar_items("Comprensión lectora", comprension_lectora)
 
-# Procesar resultados
-if st.button("Calcular resultados"):
+# Calcular resultados y guardar
+if st.button("Enviar respuestas"):
     total_equipo = sum(respuestas_equipo)
     total_autonomo = sum(respuestas_autonomo)
     total_lectora = sum(respuestas_lectora)
     total_general = total_equipo + total_autonomo + total_lectora
 
-    st.markdown("### Resultados")
-    st.write(f"**Trabajo en equipo:** {total_equipo} / 20")
-    st.write(f"**Trabajo autónomo en casa:** {total_autonomo} / 15")
-    st.write(f"**Comprensión lectora:** {total_lectora} / 15")
-    st.write(f"**Puntaje total:** {total_general} / 50")
-
-    # Interpretación
     if total_general >= 41:
         nivel = "Destacado"
     elif total_general >= 31:
@@ -68,4 +64,28 @@ if st.button("Calcular resultados"):
     else:
         nivel = "Crítico / Requiere intervención"
 
-    st.success(f"**Nivel de desempeño: {nivel}**")
+    # Construir diccionario de datos
+    data = {
+        "Nombre": nombre,
+        "Trabajo en equipo": total_equipo,
+        "Trabajo autónomo en casa": total_autonomo,
+        "Comprensión lectora": total_lectora,
+        "Total": total_general,
+        "Nivel de desempeño": nivel
+    }
+
+    df = pd.DataFrame([data])
+
+    archivo = "resultados_evaluacion.xlsx"
+
+    if os.path.exists(archivo):
+        df_existente = pd.read_excel(archivo)
+        df_final = pd.concat([df_existente, df], ignore_index=True)
+    else:
+        df_final = df
+
+    df_final.to_excel(archivo, index=False)
+
+    st.success("Respuestas guardadas exitosamente.")
+    st.write("Resumen de tus resultados:")
+    st.dataframe(df)
