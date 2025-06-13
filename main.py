@@ -1,6 +1,7 @@
 import streamlit as st
 
 st.title("Evaluación de Habilidades Académicas")
+st.markdown("Alan Cervantes, Joel Sánchez, Rodrigo Delgadillo, Saúl Padilla")
 st.markdown("**Instrucciones:** Lee cada afirmación y selecciona el número que mejor refleje tu nivel de acuerdo. La escala es la siguiente:")
 st.markdown("""
 - 1 = Totalmente en desacuerdo  
