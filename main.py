@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-
+import os
 
 st.title("Evaluación de Habilidades Académicas")
 st.markdown("Alan Cervantes, Joel Sánchez, Rodrigo Delgadillo, Saúl Padilla")
